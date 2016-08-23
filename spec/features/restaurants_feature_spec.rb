@@ -46,19 +46,32 @@ feature 'Restaurants' do
 
   context 'editing restaurants' do
 
-  before { Restaurant.create name: 'Etsu', description: 'Cheap fresh sushi' }
+    before { Restaurant.create name: 'Etsu', description: 'Cheap fresh sushi' }
 
-  scenario 'let a user edit a restaurant' do
-   visit '/restaurants'
-   click_link 'Edit Etsu'
-   fill_in 'Name', with: 'Etsu Sushi'
-   fill_in 'Description', with: 'Cheap fresh sushi'
-   click_button 'Update Restaurant'
-   expect(page).to have_content 'Etsu Sushi'
-   expect(page).to have_content 'Cheap fresh sushi'
-   expect(current_path).to eq '/restaurants'
+    scenario 'let a user edit a restaurant' do
+     visit '/restaurants'
+     click_link 'Edit Etsu'
+     fill_in 'Name', with: 'Etsu Sushi'
+     fill_in 'Description', with: 'Cheap fresh sushi'
+     click_button 'Update Restaurant'
+     expect(page).to have_content 'Etsu Sushi'
+     expect(page).to have_content 'Cheap fresh sushi'
+     expect(current_path).to eq '/restaurants'
+    end
+
   end
 
-end
+  context 'deleting restaurants' do
+
+    before { Restaurant.create name: 'KFC', description: 'Deep fried goodness' }
+
+    scenario 'removes a restaurant when a user clicks a delete link' do
+      visit '/restaurants'
+      click_link 'Delete KFC'
+      expect(page).not_to have_content 'KFC'
+      expect(page).to have_content 'Restaurant deleted successfully'
+    end
+
+  end
 
 end
