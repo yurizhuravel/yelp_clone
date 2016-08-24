@@ -23,14 +23,25 @@ feature 'Restaurants' do
   end
 
   context 'creating restaurants' do
-    scenario 'shows user a form to fill, then creates a restaurant' do
+    before do
       visit '/restaurants'
       click_link 'Add a restaurant'
+    end
+
+    scenario 'shows user a form to fill, then creates a restaurant' do
       fill_in 'Name', with: 'Etsu'
       click_button 'Create Restaurant'
       expect(page).to have_content 'Etsu'
       expect(current_path).to eq '/restaurants'
     end
+
+    scenario 'names shorter than 2 characters are not accepted' do
+      fill_in 'Name', with: 'E'
+      click_button 'Create Restaurant'
+      expect(page).not_to have_css 'h2', text: 'E'
+      expect(page).to have_content 'error'
+    end
+
   end
 
   context 'viewing restaurants' do
@@ -74,6 +85,6 @@ feature 'Restaurants' do
 
   end
 
-  
+
 
 end
