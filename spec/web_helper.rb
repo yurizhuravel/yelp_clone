@@ -17,3 +17,10 @@ def sign_out
   visit '/'
   click_link 'Sign out'
 end
+
+def create_restaurant
+  sign_up
+  click_link 'Add a restaurant'
+  fill_in 'Name', with: 'Goodmans'
+  click_button 'Create Restaurant'
+end

@@ -12,7 +12,7 @@ feature 'Restaurants' do
 
     context 'when restaurants have been added' do
         before do
-            Restaurant.create(name: 'Goodmans')
+            create_restaurant
         end
 
         scenario 'display restaurants' do
@@ -45,39 +45,43 @@ feature 'Restaurants' do
     end
 
     context 'viewing restaurants' do
-        let!(:etsu) { Restaurant.create(name: 'Etsu') }
+        before do
+          create_restaurant
+        end
 
         scenario 'lets users view individual restaurants' do
             visit '/restaurants'
-            click_link 'Etsu'
-            expect(page).to have_content 'Etsu'
+            click_link 'Goodmans'
+            expect(page).to have_content 'Goodmans'
         end
     end
 
     context 'editing restaurants' do
-        before { Restaurant.create name: 'Etsu', description: 'Cheap fresh sushi' }
+      before do
+          create_restaurant
+      end
 
         scenario 'let a user edit a restaurant' do
-            sign_up
             visit '/restaurants'
-            click_link 'Edit Etsu'
-            fill_in 'Name', with: 'Etsu Sushi'
-            fill_in 'Description', with: 'Cheap fresh sushi'
+            click_link 'Edit Goodmans'
+            fill_in 'Name', with: 'Goodmans Steakhouse'
+            fill_in 'Description', with: 'Best steak in town'
             click_button 'Update Restaurant'
-            expect(page).to have_content 'Etsu Sushi'
-            expect(page).to have_content 'Cheap fresh sushi'
+            expect(page).to have_content 'Goodmans Steakhouse'
+            expect(page).to have_content 'Best steak in town'
             expect(current_path).to eq '/restaurants'
         end
     end
 
     context 'deleting restaurants' do
-        before { Restaurant.create name: 'KFC', description: 'Deep fried goodness' }
+      before do
+          create_restaurant
+      end
 
         scenario 'removes a restaurant when a user clicks a delete link' do
-            sign_up
             visit '/restaurants'
-            click_link 'Delete KFC'
-            expect(page).not_to have_content 'KFC'
+            click_link 'Delete Goodmans'
+            expect(page).not_to have_content 'Goodmans'
             expect(page).to have_content 'Restaurant deleted successfully'
         end
     end
