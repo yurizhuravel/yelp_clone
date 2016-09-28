@@ -4,7 +4,7 @@ source 'http://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.18'
+gem 'pg', '~> 0.19'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -28,7 +28,10 @@ gem 'haml'
 gem 'devise'
 #Use Omniauth for Facebook authorisation
 gem 'omniauth-facebook'
+# Use dotenv for storing environment variables securely
 gem 'dotenv-rails'
+# Use nokogiri for HTML parsing
+gem 'nokogiri'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
